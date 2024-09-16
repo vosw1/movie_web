@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 <body>
-    <span>총 클릭 수: 0</span>
-    <button id="btn">Click me</button>
+    <div id="root"></div>
 </body>
-<script>
-    let counter = 0;
-    const button = document.getElementById("btn");
-    const span = document.querySelector("span");
-    function handleClick() {
-        counter = counter + 1;
-       span.innerText = `총 클릭 수: ${counter}`;
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+
+<script type="text/babel">
+    // Title 컴포넌트 정의
+    function Title() {
+        return (
+            <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+                Hello
+            </h3>
+        );
     }
-    button.addEventListener("click", handleClick);
+    
+    // Button 컴포넌트 정의
+    function Button() {
+        return (
+            <button style={{backgroundColor: "orange"}} id="btn" onClick={() => console.log("클릭했어요~!")}>
+                Click me!
+            </button>
+        );
+    }
+
+    // 부모 div로 두 요소를 감싸기
+    const container = (
+        <div>
+            <Title /> 
+            <Button />
+        </div>
+    );
+    
+    // ReactDOM을 사용하여 React 요소를 렌더링하기
+    const root = document.getElementById("root");
+    ReactDOM.render(container, root);
 </script>
 </html>
