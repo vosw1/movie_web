@@ -4,36 +4,39 @@
     <div id="root"></div>
   </body>
 
-  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
 
   <script type="text/babel">
-    function Btn({text, onClick}) {
-      console.log(text, "렌더링됨");
-      
-      return <button 
-        onClick={onClick}
-        style={{
-          backgroundColor: "orange",
-          color: "white",
-          padding: "10px 20px", 
-          border: 0,
-          borderRadius: 10, 
-        }}>{text}</button>;
+    function Btn({ text, fontSize }) {
+      return (
+        <button 
+          style={{
+            backgroundColor: "orange",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10, 
+            fontSize
+          }}>
+          {text}
+        </button>
+      );
     }
 
-    const MemorizatonBtn = React.memo(Btn);
-  
-    function App() {
-      const [value, setValue] = React.useState("저장하기");
-      const changeValue = () => setValue("되돌리기");
+    Btn.propTypes = {
+      text: PropTypes.string, 
+      fontSize: PropTypes.number
+    };
 
+    function App() {
       return (
         <div>
-          <MemorizatonBtn text={value} onClick={changeValue}/> 
+          <Btn text="저장" fontSize={18} /> 
           <br />
-          <MemorizatonBtn text="확인" />  
+          <Btn text="확인" fontSize={10} />  
         </div>
       );
     }
