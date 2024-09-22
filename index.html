@@ -9,24 +9,31 @@
   <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
 
   <script type="text/babel">
-    function Btn({text}) {
-      console.log(text); 
-
-      return <button style={{
-        backgroundColor: "orange",
-        color: "white",
-        padding: "10px 20px", 
-        border: 0,
-        borderRadius: 10, 
-      }}>{text}</button>;
+    function Btn({text, onClick}) {
+      console.log(text, "렌더링됨");
+      
+      return <button 
+        onClick={onClick}
+        style={{
+          backgroundColor: "orange",
+          color: "white",
+          padding: "10px 20px", 
+          border: 0,
+          borderRadius: 10, 
+        }}>{text}</button>;
     }
 
+    const MemorizatonBtn = React.memo(Btn);
+  
     function App() {
+      const [value, setValue] = React.useState("저장하기");
+      const changeValue = () => setValue("되돌리기");
+
       return (
         <div>
-          <Btn text="저장" />  
+          <MemorizatonBtn text={value} onClick={changeValue}/> 
           <br />
-          <Btn text="확인" />  
+          <MemorizatonBtn text="확인" />  
         </div>
       );
     }
